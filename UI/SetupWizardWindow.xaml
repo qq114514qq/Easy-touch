@@ -1,0 +1,81 @@
+<Window
+    x:Class="CamTouchUI.SetupWizardWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CamTouchUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="EasyTouch 设置向导"
+    Height="650"
+    Width="850">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 内容区域 -->
+        <Grid Grid.Row="0" Padding="40">
+            <!-- 欢迎页 -->
+            <Grid x:Name="WelcomePage" Visibility="Visible">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="15" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="750" Padding="20">
+                        <TextBlock Text="👋" FontSize="72" HorizontalAlignment="Center"/>
+                        <TextBlock Text="欢迎使用 EasyTouch" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="让屏幕触控从未如此轻松！" FontSize="18" Foreground="Gray" HorizontalAlignment="Center"/>
+
+                        <!-- 介绍文字 -->
+                        <Border Background="#F0F8FF" Padding="15" CornerRadius="8" Margin="0,10,0,0">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="EasyTouch 是完全免费开源的。" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBlock Text="如果您是付费购买的，请您去退款。" FontSize="14" Foreground="Red" FontWeight="SemiBold"/>
+                                <TextBlock Text="EasyTouch 是基于摄像头和本地 AI 的程序，原理是通过摄像头识别您的手势和屏幕上的位置，并映射出一个 HID 屏幕。需要 16 点定位，将在后面介绍。" 
+                                           FontSize="14" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- 免责声明 -->
+                        <Border Background="#FFF9E6" Padding="15" CornerRadius="8" Margin="0,10,0,0">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="免责声明" FontSize="16" FontWeight="Bold" Foreground="#D2691E"/>
+                                <TextBlock Text="1. 本软件为免费开源项目，不提供任何形式的担保，使用过程中产生的任何硬件损坏、数据丢失或系统问题，开发者不承担任何责任。" 
+                                           FontSize="12" TextWrapping="Wrap"/>
+                                <TextBlock Text="2. 使用本软件前请确保已了解并同意自行承担风险。请勿在重要场合（如医疗、安全监控等）依赖本软件。" 
+                                           FontSize="12" TextWrapping="Wrap"/>
+                                <TextBlock Text="3. 本软件可能包含第三方组件，其版权归各自作者所有。请遵守相关开源协议。" 
+                                           FontSize="12" TextWrapping="Wrap"/>
+                                <TextBlock Text="4. 禁止将本软件更名后重新分发或进行商业销售。我们保留追究法律责任的权利。" 
+                                           FontSize="12" TextWrapping="Wrap"/>
+                                <TextBlock Text="5. 本免责声明如有更新，恕不另行通知，最新版本以官方发布为准。" 
+                                           FontSize="12" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- 同意复选框 -->
+                        <CheckBox x:Name="AgreeCheckBox" Content="我已阅读并同意以上免责声明" 
+                                  Checked="AgreeCheckBox_Changed" 
+                                  Unchecked="AgreeCheckBox_Changed" 
+                                  FontSize="14"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- 驱动检测页 -->
+            <Grid x:Name="DriverPage" Visibility="Collapsed">
+                <StackPanel Spacing="15" VerticalAlignment="Center" HorizontalAlignment="Center" Width="600">
+                    <TextBlock Text="🔧" FontSize="48" HorizontalAlignment="Center"/>
+                    <TextBlock Text="步骤 1：检查驱动" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    
+                    <Border Background="#F5F5F5" Padding="20" CornerRadius="8" Margin="0,20,0,0">
+                        <StackPanel Spacing="10">
+                            <TextBlock x:Name="DriverStatusText" Text="正在检测 VMulti 驱动..." FontSize="16" HorizontalAlignment="Center"/>
+                            <ProgressBar x:Name="DriverProgressBar" IsIndeterminate="True" Width="400" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel x:Name="DriverActionPanel" Visibility="Collapsed" Spacing="10" Margin="0,20,0,0">
+                        <TextBlock Text="未检测到 VMulti 驱动，请先安装：" FontSize="14" HorizontalAlignment="Center"/>
+                        <Button Content="📁 打开驱动文件夹" Click="OpenDriverFolder_Click" Width="200" HorizontalAlignment="Center"/>
+                        <Button Content="🔄 重新检测" Click="RecheckDriver_Click" Width="200" HorizontalAlignment="Center" Styl
